@@ -2,7 +2,7 @@
 <html>
 @include('includes.head')
 <body>
-  <div class="container" id="app">
+  <div class="container bg-white" id="app">
   </div>
   @include('includes.footer')
 </body>

@@ -11,5 +11,5 @@
 |
 */
 
-// Using React Router
+// Single page app, doesn't require too much routing...
 Route::view('/{path?}', 'app');
