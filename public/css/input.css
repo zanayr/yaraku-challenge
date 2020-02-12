@@ -1,0 +1,66 @@
+/*
+ *
+ */
+
+label {
+  left: 0;
+  position: absolute;
+  right: 0;
+  visibility: hidden;
+  z-index: -1;
+}
+input {
+  background-color: var(--gray80);
+  border: none;
+  border-radius: 2px;
+  color: var(--white);
+  height: 32px;
+  padding-left: 4px;
+  width: 100%;
+}
+input::placeholder {
+  color: var(--gray60);
+}
+
+.button {
+  cursor: pointer;
+}
+/*  SEARCH  */
+div.search-input {
+  height: 48px;
+  margin-right: 8px;
+  width: 100%;
+}
+/*  SORT  */
+div.sort-button {
+  border-radius: 2px;
+  height: 32px;
+  width: auto;
+}
+div.sort-button > div {
+  padding: 8px;
+}
+div.sort-button p {
+  font-size: 13px;
+}
+
+/*  CONTEXT  */
+div.context-button {
+  border-radius: 2px;
+  height: 32px;
+  width: 32px;
+}
+div.context-button > div {
+  padding: 8px;
+}
+
+/*  ACTION  */
+div.action-button {
+  border-radius: 24px;
+  height: 48px;
+  bottom: 8px;
+  position: fixed;
+  right: 8px;
+  width: 48px;
+  z-index: 99;
+}

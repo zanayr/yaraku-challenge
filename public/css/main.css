@@ -1,0 +1,52 @@
+/*
+ *
+ */
+
+/*  MAIN  */
+main > div {
+  padding-top: 136px;
+}
+
+
+
+
+
+
+/*  LIST  */
+/*  ITEMS  */
+article.list-item {
+  border-top: solid 1px var(--gray20);
+  height: 64px;
+}
+article.list-item > div {
+  align-items: center;
+}
+article.list-item div.list-item-content {
+  height: 48px;
+}
+article.list-item div.list-item-content h1 {
+  margin-bottom: 4px;
+}
+article.list-item div.list-item-context > div > div:first-child {
+  margin-right: 8px;
+}
+
+
+/*  Form  */
+aside {
+  height: 100vh;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  z-index: 99;
+}
+aside form {
+  border-radius: 2px;
+  box-shadow: 2px 2px 3px 2px rgba(0, 0, 0, 0.125);
+  height: 125px;
+  width: 66%;
+}
+aside form > div {
+  padding: 8px;
+}

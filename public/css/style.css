@@ -6,15 +6,18 @@
 html:root {
   --primary: #4c3ae9;
   --secondary: #2a1b77;
-  --white: #f0f0f0;
+  --white: #f8f8f8;
   --black: #201818;
-  --gray20: #cccccc;
+  --gray80: #3c3535;
+  --gray60: #645d5e;
+  --gray20: #dbdada;
+  --gray10: #f6f6f6;
 }
 
 
 /*  RESET  */
 html, body, div, header, main, footer, ul, li,
-form, input, textarea, button, label
+form, input, textarea, button, label,
 h1, h2, h3, h4, h5, h6, p, a {
   box-sizing: border-box;
   margin: 0;
@@ -36,6 +39,10 @@ html, body {
 .bg-white {
   background-color: var(--white);
 }
+.bg-primary {
+  background-color: var(--primary);
+  color: var(--white);
+}
 .bg-gradient {
   background: linear-gradient(45deg, var(--secondary) 0%, var(--primary) 100%); 
 }
@@ -48,22 +55,36 @@ div.wrapper {
 }
 
 
-/*  HEADER  */
-header {
-  height: 64px;
-  margin: 0px -8px;
-  position: fixed;
-  width: 100%;
-  z-index: 99;
+/*  LAYOUT  */
+.row > div {
+  display: flex;
+  flex-direction: row;
 }
-header > div {
-  padding: 0px 8px;
+.column > div {
+  display: flex;
+  flex-direction: column;
 }
-header div.header-container {
-  border-radius: 2px;
-  height: 64px;
-  top: 8px;
+.justify-between > div {
+  justify-content: space-between;
 }
-header div.header-container > div {
-  padding: 8px;
+.center-content > div {
+  align-items: center;
+  justify-content: center;
+}
+
+
+/*  MISC  */
+.dingbat {
+  font-family: "Bookmark Dingbats";
+}
+.md-icon {
+  font-size: 27px;
+}
+.lg-icon {
+  font-size: 31px;
+}
+
+img {
+  height: 100%;
+  width: auto;
 }

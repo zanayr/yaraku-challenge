@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'Bookmark Dingbats';
+    src: url('../fonts/Bookmark_Dingbats.woff2') format('woff2'),
+        url('../fonts/Bookmark_Dingbats.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}

@@ -1,17 +1,32 @@
 import React from 'react';
 
-const header = (props) => {
-    return (
-        <header className={'bg-gradient'}>
-            <div className='wrapper'>
-                <div className='header-container bg-black'>
-                    <div className='wrapper'>
+import logo from '../../svg/logo.svg';
+import Search from '../input/Search/Search';
+import Sort from '../button/Sort/Sort';
 
-                    </div>
+const header = (props) => {
+  return (
+    <header className={'bg-gradient'}>
+      <div className='wrapper'>
+          <div className='header-container row justify-between bg-black'>
+              <div className='wrapper'>
+                <div className='logo'>
+                  <div className='wrapper'>
+                    <img src={logo} />
+                  </div>
                 </div>
-            </div>
-        </header>
-    );
+                <Search />
+                <div className='toolbar row center-content'>
+                  <div className='wrapper'>
+                    <Sort value='Author' />
+                    <Sort value='Title' />
+                  </div>
+                </div>
+              </div>
+          </div>
+      </div>
+    </header>
+  );
 };
 
 export default header;

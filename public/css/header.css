@@ -1,0 +1,49 @@
+/*
+ *
+ */
+
+
+/*  HEADER  */
+header {
+  height: 64px;
+  margin: 0px -8px;
+  position: fixed;
+  width: 100%;
+  z-index: 99;
+}
+header > div {
+  padding: 0px 8px;
+}
+header div.header-container {
+  border-radius: 2px;
+  height: 64px;
+  top: 8px;
+}
+header div.header-container > div {
+  align-items: center;
+  padding: 8px;
+}
+
+/*  LOGO  */
+header div.logo {
+  height: 32px;
+  margin-right: 8px;
+  width: 32px;
+}
+header div.logo img {
+  fill: var(--white);
+}
+
+
+/*  TOOLBAR  */
+header div.toolbar {
+  background-color: transparent;
+  bottom: -56px;
+  color: var(--black);
+  height: 48px;
+  position: absolute;
+  right: 0px;
+}
+header div.toolbar > div > div:first-child {
+  margin-right: 8px;
+}
