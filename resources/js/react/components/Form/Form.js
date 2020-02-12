@@ -9,6 +9,11 @@ const form = props => {
       <div className='wrapper'>
         <form className='bg-black'>
           <div className='wrapper'>
+            <div className='header'>
+              <div className='wrapper'>
+                <h3>Add New Book</h3>
+              </div>
+            </div>
             <Input label='Title'
                 placeholder='Title' />
             <Input label='Title'

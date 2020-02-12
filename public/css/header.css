@@ -47,3 +47,15 @@ header div.toolbar {
 header div.toolbar > div > div:first-child {
   margin-right: 8px;
 }
+
+
+@media only screen and (min-width: 668px) {
+  /*  TOOLBAR  */
+  header div.header-container > div {
+    justify-content: normal !important; /* override */
+  }
+  header div.toolbar {
+    bottom: auto;
+    right: 8px;
+  }
+}

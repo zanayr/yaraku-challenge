@@ -29,6 +29,7 @@ input::placeholder {
 div.search-input {
   height: 48px;
   margin-right: 8px;
+  max-width: 445px;
   width: 100%;
 }
 /*  SORT  */
@@ -72,4 +73,10 @@ aside .button {
 }
 aside .button p {
   font-size: 13px;
+}
+
+@media only screen and (min-width: 668px) {
+  div.sort-button {
+    color: var(--white);
+  }
 }

@@ -30,6 +30,10 @@ article.list-item div.list-item-content h1 {
 article.list-item div.list-item-context > div > div:first-child {
   margin-right: 8px;
 }
+article.list-item:hover div.list-item-context {
+  display: block;
+  visibility: visible;
+}
 
 
 /*  Form  */
@@ -44,13 +48,30 @@ aside {
 aside form {
   border-radius: 2px;
   box-shadow: 2px 2px 3px 2px rgba(0, 0, 0, 0.125);
-  height: 125px;
+  max-width: 338px;
   width: 66%;
 }
 aside form > div {
   padding: 8px;
 }
+aside form div.header h2 {
+  font-size: 19px;
+}
 
 aside form > div > div:not(:last-child) {
   margin-bottom: 8px;
+}
+
+@media only screen and (min-width: 668px) {
+  article.list-item {
+    cursor: pointer; /*  user feedback  */
+  }
+  article.list-item div.list-item-context {
+    display: none;
+    visibility: hidden;
+  }
+  article.list-item:hover div.list-item-context {
+    display: block;
+    visibility: visible;
+  }
 }

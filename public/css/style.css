@@ -30,6 +30,7 @@ h1, h2, h3, h4, h5, h6, p, a {
 html, body {
   color: var(--black);
   font-family: "Montserrat", "Arial", sans-serif;
+  letter-spacing: 0.06em;
   height: 100%;
 }
 .bg-black {

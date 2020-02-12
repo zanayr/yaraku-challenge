@@ -51247,7 +51247,11 @@ var form = function form(props) {
     className: "bg-black"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wrapper"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_input_Input_Input__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "header"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "wrapper"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Add New Book"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_input_Input_Input__WEBPACK_IMPORTED_MODULE_2__["default"], {
     label: "Title",
     placeholder: "Title"
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_input_Input_Input__WEBPACK_IMPORTED_MODULE_2__["default"], {
