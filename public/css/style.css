@@ -65,7 +65,7 @@ div.wrapper {
   flex-direction: column;
 }
 .justify-between > div {
-  justify-content: space-between;
+  justify-content: space-between !important; /* override */
 }
 .center-content > div {
   align-items: center;

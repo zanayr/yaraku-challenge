@@ -50,3 +50,7 @@ aside form {
 aside form > div {
   padding: 8px;
 }
+
+aside form > div > div:not(:last-child) {
+  margin-bottom: 8px;
+}

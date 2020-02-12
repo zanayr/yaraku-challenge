@@ -51254,7 +51254,7 @@ var form = function form(props) {
     label: "Title",
     placeholder: "Title"
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "form-footer row center-content justify between"
+    className: "form-footer row center-content justify-between"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wrapper"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_button_Button_Button__WEBPACK_IMPORTED_MODULE_1__["default"], {

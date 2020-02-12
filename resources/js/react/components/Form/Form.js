@@ -13,7 +13,7 @@ const form = props => {
                 placeholder='Title' />
             <Input label='Title'
                 placeholder='Title' />
-            <div className='form-footer row center-content justify between'>
+            <div className='form-footer row center-content justify-between'>
             <div className='wrapper'>
                 <Button value='Cancel' />
                 <Button value='Ok' />
