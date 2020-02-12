@@ -7,9 +7,6 @@
 header {
   height: 64px;
   margin: 0px -8px;
-  position: fixed;
-  width: 100%;
-  z-index: 99;
 }
 header > div {
   padding: 0px 8px;

@@ -11,7 +11,7 @@ class App extends Component {
             <React.Fragment>
                 <Header />
                 <Main />
-                <Form />
+                {/* <Form /> */}
             </React.Fragment>
         );
     }

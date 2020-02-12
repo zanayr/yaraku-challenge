@@ -4,7 +4,7 @@
 
 /*  MAIN  */
 main > div {
-  padding-top: 136px;
+  padding-top: 72px;
 }
 
 
@@ -40,7 +40,7 @@ article.list-item:hover div.list-item-context {
 aside {
   height: 100vh;
   left: 0;
-  position: absolute;
+  position: fixed;
   top: 0;
   width: 100vw;
   z-index: 99;

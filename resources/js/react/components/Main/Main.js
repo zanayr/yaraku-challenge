@@ -1,18 +1,34 @@
-import React from 'react';
-
+import React, { Component } from 'react';
+import axios from 'axios';
 
 import Action from '../button/Action/Action';
 import List from '../list/List/List';
 
-const main = (props) => {
-  return (
+class Main extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: []
+    };
+  }
+
+  componentDidMount() {
+    axios.get('/api/books')
+      .then(response => {
+        this.setState({data: response.data});
+      });
+  }
+
+  render() {
+    return (
       <main>
           <div className="wrapper">
-            <List data={{0: {id: 0, title: 'Hello, World! Fizz Buzz', author: 'Spam Foobar'}}} />
+            <List data={this.state.data} />
             <Action />
           </div>
       </main>
-  );
+    );
+  }
 }
 
-export default main;
+export default Main;
