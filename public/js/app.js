@@ -54855,9 +54855,9 @@ var header = function header(props) {
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wrapper"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_button_Sort_Sort__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    value: "Author"
+    value: "author"
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_button_Sort_Sort__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    value: "Title"
+    value: "title"
   })))))));
 };
 
@@ -55035,54 +55035,53 @@ var context = function context(props) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../store/actions */ "./resources/js/react/store/actions.js");
 
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
-
-function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
 var sort = function sort(props) {
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0),
-      _useState2 = _slicedToArray(_useState, 2),
-      state = _useState2[0],
-      setState = _useState2[1];
-
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0),
-      _useState4 = _slicedToArray(_useState3, 2),
-      order = _useState4[0],
-      setOrder = _useState4[1];
+  var active = props.sortValue === props.value;
 
   var handle_stateChange = function handle_stateChange(e) {
     e.preventDefault();
-    var nextState = !state;
-    setState(nextState);
-    props.onclick([nextState, order]);
-  };
-
-  var handle_orderChange = function handle_orderChange(e) {
-    e.preventDefault();
-    var nextOrder = !order;
-    setOrder(nextOrder);
-    props.onclick([state, nextOrder]);
+    props.loading();
+    props.onSort({
+      direction: active ? 1 - props.direction : 0,
+      value: props.value
+    });
   };
 
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: 'sort-button button row center-content justify-between' + (state ? ' active' : '')
+    className: 'sort-button button row center-content justify-between' + (active ? ' active' : ''),
+    onClick: handle_stateChange
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wrapper"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-    onClick: handle_stateChange
-  }, props.value), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-    className: 'dingbat md-icon icon' + (order ? ' active' : ''),
-    onClick: handle_orderChange
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, props.value), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: 'dingbat md-icon icon' + (props.direction ? ' active' : '')
   }, "c")));
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (sort);
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    direction: state.sort.direction,
+    sortValue: state.sort.value
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    loading: function loading() {
+      return dispatch(_store_actions__WEBPACK_IMPORTED_MODULE_2__["loading"]());
+    },
+    onSort: function onSort(data) {
+      return dispatch(_store_actions__WEBPACK_IMPORTED_MODULE_2__["sort"](data));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(sort));
 
 /***/ }),
 
@@ -55265,7 +55264,7 @@ var mapStateToProps = function mapStateToProps(state) {
 /*!*********************************************!*\
   !*** ./resources/js/react/store/actions.js ***!
   \*********************************************/
-/*! exports provided: CLEAR, DELETE, FAIL, GET, LOADING, POST, PUT, SEARCH, SORT, sort, get_async */
+/*! exports provided: CLEAR, DELETE, FAIL, GET, LOADING, POST, PUT, SEARCH, SORT, loading, sort, get_async */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -55279,6 +55278,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PUT", function() { return PUT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SEARCH", function() { return SEARCH; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SORT", function() { return SORT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loading", function() { return loading; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sort", function() { return sort; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_async", function() { return get_async; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -55320,7 +55320,10 @@ var get = function get(data) {
     type: GET,
     payload: data
   };
-}; //  Set is loading
+}; //  SEARCH
+
+/*  EXPORTED ACTION BUILDERS  */
+//  Loading
 
 
 var loading = function loading() {
@@ -55328,12 +55331,7 @@ var loading = function loading() {
     type: LOADING,
     payload: {}
   };
-}; //  SEARCH
-
-/*  EXPORTED ACTION BUILDERS  */
-//  Loading
-//  Sort
-
+}; //  Sort
 
 var sort = function sort(data) {
   return {
@@ -55382,7 +55380,7 @@ var initial = {
   result: [],
   // search results
   sort: {
-    direction: 0,
+    direction: 1,
     // 0 = DESC, 1 = ASC
     value: 'title'
   }
@@ -55417,7 +55415,7 @@ var reducer = function reducer() {
         result: _utility_utility__WEBPACK_IMPORTED_MODULE_1__["map"][action.payload.direction](state.result, action.payload.value),
         sort: {
           direction: action.payload.direction,
-          value: action.payload.dir
+          value: action.payload.value
         }
       });
 

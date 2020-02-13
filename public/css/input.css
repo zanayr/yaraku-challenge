@@ -45,6 +45,7 @@ div.sort-button > div {
 div.sort-button p {
   font-size: 13px;
   margin-right: 16px;
+  text-transform: capitalize;
 }
 div.sort-button span.icon {
   display: none;

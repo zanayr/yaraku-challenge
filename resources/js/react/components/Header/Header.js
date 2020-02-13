@@ -18,8 +18,8 @@ const header = (props) => {
                 <Search />
                 <div className='toolbar row center-content'>
                   <div className='wrapper'>
-                    <Sort value='Author' />
-                    <Sort value='Title' />
+                    <Sort value='author' />
+                    <Sort value='title' />
                   </div>
                 </div>
               </div>

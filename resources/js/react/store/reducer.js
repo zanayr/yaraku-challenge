@@ -7,7 +7,7 @@ const initial = {
   isLoading: false,
   result: [], // search results
   sort: {
-    direction: 0, // 0 = DESC, 1 = ASC
+    direction: 1, // 0 = DESC, 1 = ASC
     value: 'title'
   }
 }
@@ -38,7 +38,7 @@ const reducer = (state = initial, action) => {
         result: utility.map[action.payload.direction](state.result, action.payload.value),
         sort: {
           direction: action.payload.direction,
-          value: action.payload.dir
+          value: action.payload.value
         }
       }
     default:

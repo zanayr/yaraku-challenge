@@ -37,19 +37,16 @@ const get = data => {
     payload: data
   };
 };
-
-//  Set is loading
-const loading = () => {
-  return {
-    type: LOADING,
-    payload: {}
-  };
-};
-
 //  SEARCH
 
 /*  EXPORTED ACTION BUILDERS  */
 //  Loading
+export const loading = () => {
+    return {
+      type: LOADING,
+      payload: {}
+    };
+  };
 //  Sort
 export const sort = data => {
   return {
