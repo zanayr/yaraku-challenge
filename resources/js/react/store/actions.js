@@ -44,15 +44,21 @@ const post = data => {
     payload: data
   };
 };
+const search = data => {
+  return {
+    type: SEARCH,
+    payload: data
+  };
+};
 
 /*  EXPORTED ACTION BUILDERS  */
 //  Loading
 export const loading = () => {
-    return {
-      type: LOADING,
-      payload: {}
-    };
+  return {
+    type: LOADING,
+    payload: {}
   };
+};
 //  Sort
 export const sort = data => {
   return {
@@ -74,7 +80,6 @@ export const get_async = () => {
       });
   };
 };
-
 //  Post Async
 export const post_async = data => {
   return dispatch => {
@@ -86,5 +91,16 @@ export const post_async = data => {
       .catch(error => {
         dispatch(failure(error));
       });
+  };
+};
+export const search_async = data => {
+  return dispatch => {
+    dispatch(loading()); // had to use thunk to dispatch loading first
+    new Promise((resolve, _) => {
+      resolve(data);
+    })
+    .then(() => {
+      dispatch(search(data));
+    });
   };
 };

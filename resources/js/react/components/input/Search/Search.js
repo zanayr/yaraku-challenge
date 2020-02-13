@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import * as actions from '../../../store/actions';
 
 const Search = (props) => {
   const [value, setValue] = useState('');
 
   const handle_onChange = e => {
-    setValue(e.target.value);
+    const value = e.target.value;
+    props.search(value);
+    setValue(value);
   }
 
   return (
@@ -20,4 +24,10 @@ const Search = (props) => {
   );
 };
 
-export default Search;
+const mapDispatchToProps = dispatch => {
+  return {
+    search: data => dispatch(actions.search_async(data))
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Search);

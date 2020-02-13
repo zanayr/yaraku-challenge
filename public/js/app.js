@@ -55265,6 +55265,8 @@ var Input = function Input(props) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../store/actions */ "./resources/js/react/store/actions.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
@@ -55275,6 +55277,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
 var Search = function Search(props) {
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
       _useState2 = _slicedToArray(_useState, 2),
@@ -55282,7 +55286,9 @@ var Search = function Search(props) {
       setValue = _useState2[1];
 
   var handle_onChange = function handle_onChange(e) {
-    setValue(e.target.value);
+    var value = e.target.value;
+    props.search(value);
+    setValue(value);
   };
 
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -55297,7 +55303,15 @@ var Search = function Search(props) {
   })));
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Search);
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    search: function search(data) {
+      return dispatch(_store_actions__WEBPACK_IMPORTED_MODULE_2__["search_async"](data));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(null, mapDispatchToProps)(Search));
 
 /***/ }),
 
@@ -55386,7 +55400,7 @@ var mapStateToProps = function mapStateToProps(state) {
 /*!*********************************************!*\
   !*** ./resources/js/react/store/actions.js ***!
   \*********************************************/
-/*! exports provided: CLEAR, DELETE, FAIL, GET, LOADING, POST, PUT, SEARCH, SORT, loading, sort, get_async, post_async */
+/*! exports provided: CLEAR, DELETE, FAIL, GET, LOADING, POST, PUT, SEARCH, SORT, loading, sort, get_async, post_async, search_async */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -55404,6 +55418,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sort", function() { return sort; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_async", function() { return get_async; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "post_async", function() { return post_async; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "search_async", function() { return search_async; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -55452,6 +55467,13 @@ var post = function post(data) {
     payload: data
   };
 };
+
+var search = function search(data) {
+  return {
+    type: SEARCH,
+    payload: data
+  };
+};
 /*  EXPORTED ACTION BUILDERS  */
 //  Loading
 
@@ -55488,6 +55510,17 @@ var post_async = function post_async(data) {
       dispatch(post(response.data));
     })["catch"](function (error) {
       dispatch(failure(error));
+    });
+  };
+};
+var search_async = function search_async(data) {
+  return function (dispatch) {
+    dispatch(loading()); // had to use thunk to dispatch loading first
+
+    new Promise(function (resolve, _) {
+      resolve(data);
+    }).then(function () {
+      dispatch(search(data));
     });
   };
 };
@@ -55555,6 +55588,15 @@ var reducer = function reducer() {
         data: data,
         isLoading: false,
         result: _utility_utility__WEBPACK_IMPORTED_MODULE_1__["map"][state.sort.direction](data, state.sort.value)
+      });
+
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["SEARCH"]:
+      var result = state.data.filter(function (datum) {
+        return datum.author.includes(action.payload) || datum.title.includes(action.payload);
+      });
+      return _objectSpread({}, state, {
+        isLoading: false,
+        result: _utility_utility__WEBPACK_IMPORTED_MODULE_1__["map"][state.sort.direction](result, state.sort.value)
       });
 
     case _actions__WEBPACK_IMPORTED_MODULE_0__["SORT"]:

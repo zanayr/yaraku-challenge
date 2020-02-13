@@ -39,6 +39,16 @@ const reducer = (state = initial, action) => {
         isLoading: false,
         result: utility.map[state.sort.direction](data, state.sort.value)
       };
+    case actions.SEARCH:
+      const result = state.data.filter(datum => {
+        return datum.author.includes(action.payload) ||
+               datum.title.includes(action.payload);
+      });
+      return {
+        ...state,
+        isLoading: false,
+        result: utility.map[state.sort.direction](result, state.sort.value)
+      };
     case actions.SORT:
       return {
         ...state,
