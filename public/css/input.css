@@ -24,6 +24,7 @@ input::placeholder {
 
 .button {
   cursor: pointer;
+  user-select: none;
 }
 /*  SEARCH  */
 div.search-input {
@@ -43,6 +44,26 @@ div.sort-button > div {
 }
 div.sort-button p {
   font-size: 13px;
+  margin-right: 16px;
+}
+div.sort-button span.icon {
+  display: none;
+  transition: transform 0.33s ease;
+  visibility: hidden;
+  width: 16px;
+}
+div.sort-button.active {
+  font-weight: bold;
+}
+div.sort-button.active p {
+  margin-right: 0px;
+}
+div.sort-button.active span.icon {
+  display: block;
+  visibility: visible;
+}
+div.sort-button span.icon.active {
+  transform: rotate(180deg);
 }
 
 /*  CONTEXT  */
