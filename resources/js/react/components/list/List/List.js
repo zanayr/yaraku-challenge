@@ -1,11 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import Item from '../Item/Item';
 
 const list = props => {
-  const items = Object.keys(props.data).map(key => {
-    let item = props.data[key];
-    return <Item data={item} key={item.id} />
+  const items = props.data.map(datum => {
+    return <Item data={datum} key={datum.id} />
   });
 
   return (
@@ -17,4 +17,12 @@ const list = props => {
   );
 }
 
-export default list;
+// export default list;
+
+const mapStateToProps = state => {
+  return {
+    data: state.result
+  };
+};
+
+export default connect(mapStateToProps)(list);

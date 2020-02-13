@@ -1,29 +1,20 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import { connect } from 'react-redux';
+import * as actions from '../../store/actions';
 
 import Action from '../button/Action/Action';
 import List from '../list/List/List';
 
 class Main extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: []
-    };
-  }
-
   componentDidMount() {
-    axios.get('/api/books')
-      .then(response => {
-        this.setState({data: response.data});
-      });
+    this.props.onMount(); // Dispatch call to reducer to fetch all data
   }
 
   render() {
     return (
       <main>
-          <div className="wrapper">
-            <List data={this.state.data} />
+          <div className='wrapper'>
+            <List />
             <Action />
           </div>
       </main>
@@ -31,4 +22,12 @@ class Main extends Component {
   }
 }
 
-export default Main;
+// export default Main;
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onMount: () => dispatch(actions.get_async())
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Main);
