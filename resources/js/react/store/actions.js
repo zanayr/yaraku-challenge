@@ -37,7 +37,13 @@ const get = data => {
     payload: data
   };
 };
-//  SEARCH
+//  Post
+const post = data => {
+  return {
+    type: POST,
+    payload: data
+  };
+};
 
 /*  EXPORTED ACTION BUILDERS  */
 //  Loading
@@ -64,7 +70,20 @@ export const get_async = () => {
         dispatch(get(response.data));
       })
       .catch(error => {
-        console.log('error:', error);
+        dispatch(failure(error));
+      });
+  };
+};
+
+//  Post Async
+export const post_async = data => {
+  return dispatch => {
+    dispatch(loading());
+    axios.post('/api/books', data)
+      .then(response => {
+        dispatch(post(response.data));
+      })
+      .catch(error => {
         dispatch(failure(error));
       });
   };

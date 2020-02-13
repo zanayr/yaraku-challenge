@@ -31,6 +31,14 @@ const reducer = (state = initial, action) => {
         ...state,
         isLoading: true
       };
+    case actions.POST:
+      let data = state.data.concat(action.payload);
+      return {
+        ...state,
+        data: data,
+        isLoading: false,
+        result: utility.map[state.sort.direction](data, state.sort.value)
+      };
     case actions.SORT:
       return {
         ...state,

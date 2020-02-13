@@ -97,6 +97,13 @@ aside .button p {
   font-size: 13px;
 }
 
+button {
+  border: none;
+  border-radius: 2px;
+  font-family: "Montserrat";
+  font-size: 13px;
+}
+
 @media only screen and (min-width: 668px) {
   div.sort-button {
     color: var(--white);

@@ -16,7 +16,7 @@ class BookController extends Controller
             'title' => 'required',
             'author' => 'required'
         ]));
-        return response()->json('A book has been inserted into the database.');
+        return response()->json($book);
     }
     
     public function update($id, $data) {

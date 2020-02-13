@@ -6,6 +6,7 @@ import Action from '../button/Action/Action';
 import List from '../list/List/List';
 
 class Main extends Component {
+
   componentDidMount() {
     this.props.onMount(); // Dispatch call to reducer to fetch all data
   }
@@ -15,7 +16,7 @@ class Main extends Component {
       <main>
           <div className='wrapper'>
             <List />
-            <Action />
+            <Action click={this.props.toggle} />
           </div>
       </main>
     );

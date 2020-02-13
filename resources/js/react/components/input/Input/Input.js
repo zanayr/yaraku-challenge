@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import * as utility from '../../../utility/utility';
 
 const Input = (props) => {
   const [value, setValue] = useState('');
@@ -10,9 +11,10 @@ const Input = (props) => {
   return (
     <div className='text-input row center-content'>
       <div className='wrapper'>
-        <label>{props.label}</label>
+        <label htmlFor={props.label}>{props.label}</label>
         <input onChange={handle_onChange}
-               placeholder={props.placeholder}
+               name={props.label}
+               placeholder={props.label[0].toUpperCase() + props.label.slice(1)}
                type='text'
                value={value} />
       </div>
