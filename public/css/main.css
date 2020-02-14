@@ -75,3 +75,20 @@ aside form > div > div:not(:last-child) {
     visibility: visible;
   }
 }
+
+
+
+
+
+
+
+
+
+
+/*  Delete dialog  */
+form div.form-message > div {
+  padding: 8px 0px;
+}
+form div.form-message p {
+  font-size: 11px;
+}

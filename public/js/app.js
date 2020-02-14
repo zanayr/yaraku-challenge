@@ -54805,16 +54805,24 @@ react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _form_Book_Book__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../form/Book/Book */ "./resources/js/react/components/form/Book/Book.js");
+/* harmony import */ var _Dialog_Dialog__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Dialog/Dialog */ "./resources/js/react/components/Dialog/Dialog.js");
+ // import BookForm from '../form/Book/Book';
 
 
 
 var aside = function aside(props) {
+  // let form = props.state != 2 ?
+  //   <BookForm close={props.toggle}
+  //     data={props.data}
+  //     state={props.state} /> :
+  //   <DeleteForm class={props.toggle}
+  //     data={props.data} />;
+  // }
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("aside", {
     className: "column center-content"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wrapper"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_form_Book_Book__WEBPACK_IMPORTED_MODULE_1__["default"], {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Dialog_Dialog__WEBPACK_IMPORTED_MODULE_1__["default"], {
     close: props.toggle,
     data: props.data,
     state: props.state
@@ -54822,6 +54830,139 @@ var aside = function aside(props) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (aside);
+
+/***/ }),
+
+/***/ "./resources/js/react/components/Dialog/Dialog.js":
+/*!********************************************************!*\
+  !*** ./resources/js/react/components/Dialog/Dialog.js ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../store/actions */ "./resources/js/react/store/actions.js");
+/* harmony import */ var _button_Button_Button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../button/Button/Button */ "./resources/js/react/components/button/Button/Button.js");
+/* harmony import */ var _input_Input_Input__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../input/Input/Input */ "./resources/js/react/components/input/Input/Input.js");
+/* harmony import */ var _button_Submit_Submit__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../button/Submit/Submit */ "./resources/js/react/components/button/Submit/Submit.js");
+
+
+
+
+
+
+
+var book = function book(props) {
+  var handle_onCancel = function handle_onCancel() {
+    props.close(null);
+  };
+
+  var handle_onSubmit = function handle_onSubmit(e) {
+    e.preventDefault();
+    var title = form.current.title ? form.current.title.value : null;
+    var author = form.current.author ? form.current.author.value : null;
+
+    switch (props.state) {
+      case 0:
+        props.post({
+          title: title,
+          author: author
+        });
+        break;
+
+      case 1:
+        props.put(props.data.id, {
+          title: title,
+          author: author
+        });
+        break;
+
+      case 2:
+        props["delete"](props.data);
+        break;
+
+      default:
+        break;
+    }
+
+    props.close(null);
+  }; //  From ref
+
+
+  var form = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(); //  From content
+
+  var header;
+  var content = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_input_Input_Input__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    label: "title",
+    value: props.state ? props.data.title : ''
+  });
+
+  switch (props.state) {
+    case 0:
+      header = 'Add Book';
+      break;
+
+    case 1:
+      header = 'Edit Book';
+      break;
+
+    case 2:
+      header = 'Delete Book';
+      content = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-message"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "wrapper"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Are you sure you want to delete ".concat(props.data.title, " by ").concat(props.data.author, " from your collection?"))));
+      break;
+
+    default:
+      break;
+  }
+
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+    className: "bg-black",
+    onSubmit: handle_onSubmit,
+    ref: form
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "wrapper"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form-header"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "wrapper"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, header))), content, props.state != 2 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_input_Input_Input__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    label: "author",
+    value: props.state ? props.data.author : ''
+  }) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form-footer row center-content justify-between"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "wrapper"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_button_Button_Button__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    click: handle_onCancel,
+    value: "cancel"
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_button_Submit_Submit__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    value: props.state != 2 ? 'ok' : 'confirm'
+  })))));
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    "delete": function _delete(id) {
+      return dispatch(_store_actions__WEBPACK_IMPORTED_MODULE_2__["delete_async"](id));
+    },
+    post: function post(data) {
+      return dispatch(_store_actions__WEBPACK_IMPORTED_MODULE_2__["post_async"](data));
+    },
+    put: function put(id, data) {
+      return dispatch(_store_actions__WEBPACK_IMPORTED_MODULE_2__["put_async"](id, data));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(null, mapDispatchToProps)(book));
 
 /***/ }),
 
@@ -55143,104 +55284,6 @@ var submit = function submit(props) {
 
 /***/ }),
 
-/***/ "./resources/js/react/components/form/Book/Book.js":
-/*!*********************************************************!*\
-  !*** ./resources/js/react/components/form/Book/Book.js ***!
-  \*********************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../store/actions */ "./resources/js/react/store/actions.js");
-/* harmony import */ var _button_Button_Button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../button/Button/Button */ "./resources/js/react/components/button/Button/Button.js");
-/* harmony import */ var _input_Input_Input__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../input/Input/Input */ "./resources/js/react/components/input/Input/Input.js");
-/* harmony import */ var _button_Submit_Submit__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../button/Submit/Submit */ "./resources/js/react/components/button/Submit/Submit.js");
-
-
-
-
-
-
-
-var book = function book(props) {
-  var handle_onCancel = function handle_onCancel() {
-    props.close(null);
-  };
-
-  var handle_onSubmit = function handle_onSubmit(e) {
-    e.preventDefault();
-    var title = form.current.title.value;
-    var author = form.current.author.value;
-
-    switch (props.state) {
-      case 0:
-        props.post({
-          title: title,
-          author: author
-        });
-        break;
-
-      case 1:
-        props.put(props.data.id, {
-          title: title,
-          author: author
-        });
-
-      default:
-        break;
-    }
-
-    props.close(null);
-  };
-
-  var form = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])();
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
-    className: "bg-black",
-    onSubmit: handle_onSubmit,
-    ref: form
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "wrapper"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "form-header"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "wrapper"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, props.state ? 'Edit' : 'Add', " Book"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_input_Input_Input__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    label: "title",
-    value: props.state ? props.data.title : ''
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_input_Input_Input__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    label: "author",
-    value: props.state ? props.data.author : ''
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "form-footer row center-content justify-between"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "wrapper"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_button_Button_Button__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    click: handle_onCancel,
-    value: "cancel"
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_button_Submit_Submit__WEBPACK_IMPORTED_MODULE_5__["default"], {
-    value: "ok"
-  })))));
-};
-
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {
-    post: function post(data) {
-      return dispatch(_store_actions__WEBPACK_IMPORTED_MODULE_2__["post_async"](data));
-    },
-    put: function put(id, data) {
-      return dispatch(_store_actions__WEBPACK_IMPORTED_MODULE_2__["put_async"](id, data));
-    }
-  };
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(null, mapDispatchToProps)(book));
-
-/***/ }),
-
 /***/ "./resources/js/react/components/input/Input/Input.js":
 /*!************************************************************!*\
   !*** ./resources/js/react/components/input/Input/Input.js ***!
@@ -55386,6 +55429,9 @@ var item = function item(props) {
     },
     value: "a"
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_button_Context_Context__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    action: function action() {
+      return props.action(2, props.data);
+    },
     value: "e"
   })))));
 };
@@ -55441,7 +55487,7 @@ var mapStateToProps = function mapStateToProps(state) {
 /*!*********************************************!*\
   !*** ./resources/js/react/store/actions.js ***!
   \*********************************************/
-/*! exports provided: CLEAR, DELETE, FAIL, GET, LOADING, POST, PUT, SEARCH, SORT, loading, sort, get_async, post_async, put_async, search_async */
+/*! exports provided: CLEAR, DELETE, FAIL, GET, LOADING, POST, PUT, SEARCH, SORT, loading, sort, delete_async, get_async, post_async, put_async, search_async */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -55457,6 +55503,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SORT", function() { return SORT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loading", function() { return loading; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sort", function() { return sort; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "delete_async", function() { return delete_async; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_async", function() { return get_async; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "post_async", function() { return post_async; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "put_async", function() { return put_async; });
@@ -55491,6 +55538,13 @@ var failure = function failure(error) {
   return {
     type: FAIL,
     payload: error
+  };
+};
+
+var del = function del(data) {
+  return {
+    type: DELETE,
+    payload: data
   };
 }; //  Get all data
 
@@ -55541,6 +55595,17 @@ var sort = function sort(data) {
   };
 }; //  Get Async
 
+var delete_async = function delete_async(data) {
+  return function (dispatch) {
+    dispatch(loading());
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/api/books/".concat(data.id)).then(function (response) {
+      dispatch(del(response.data));
+    })["catch"](function (error) {
+      console.log(error);
+      dispatch(failure(error));
+    });
+  };
+};
 var get_async = function get_async() {
   return function (dispatch) {
     dispatch(loading());
@@ -55624,6 +55689,16 @@ var reducer = function reducer() {
   var data, result;
 
   switch (action.type) {
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["DELETE"]:
+      data = state.data.filter(function (d) {
+        return d.id != action.payload.id;
+      });
+      return _objectSpread({}, state, {
+        data: data,
+        isLoading: false,
+        result: _utility_utility__WEBPACK_IMPORTED_MODULE_1__["map"][state.sort.direction](data, state.sort.value)
+      });
+
     case _actions__WEBPACK_IMPORTED_MODULE_0__["FAIL"]:
       return _objectSpread({}, state, {
         error: action.payload
@@ -55633,7 +55708,7 @@ var reducer = function reducer() {
       return _objectSpread({}, state, {
         data: action.payload,
         isLoading: false,
-        result: _utility_utility__WEBPACK_IMPORTED_MODULE_1__["map"][1](action.payload, 'title') // initially sort data by title
+        result: _utility_utility__WEBPACK_IMPORTED_MODULE_1__["map"][1](action.payload, 'title') // initially sort data by title, ascending
 
       });
 

@@ -29,6 +29,12 @@ const failure = error => {
     payload: error
   };
 };
+const del = data => {
+  return {
+    type: DELETE,
+    payload: data
+  }
+}
 
 //  Get all data
 const get = data => {
@@ -74,6 +80,19 @@ export const sort = data => {
 };
 
 //  Get Async
+export const delete_async = data => {
+  return dispatch => {
+    dispatch(loading());
+    axios.delete(`/api/books/${data.id}`)
+      .then(response => {
+        dispatch(del(response.data));
+      })
+      .catch(error => {
+        console.log(error);
+        dispatch(failure(error));
+      });
+  };
+};
 export const get_async = () => {
   return dispatch => {
     dispatch(loading());

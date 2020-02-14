@@ -11,6 +11,11 @@ class BookController extends Controller
         return Book::all()->toJson();
     }
 
+    public function delete(Book $book) {
+        $book->delete();
+        return response()->json($book);
+    }
+
     public function store(Request $request) {
         $book = Book::create($request->validate([
             'title' => 'required',

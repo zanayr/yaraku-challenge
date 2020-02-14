@@ -15,6 +15,16 @@ const initial = {
 const reducer = (state = initial, action) => {
   let data, result;
   switch (action.type) {
+    case actions.DELETE:
+      data = state.data.filter(d => {
+        return d.id != action.payload.id
+      });
+      return {
+        ...state,
+        data: data,
+        isLoading: false,
+        result: utility.map[state.sort.direction](data, state.sort.value)
+      };
     case actions.FAIL:
       return {
         ...state, 
@@ -25,7 +35,7 @@ const reducer = (state = initial, action) => {
         ...state,
         data: action.payload,
         isLoading: false,
-        result: utility.map[1](action.payload, 'title') // initially sort data by title
+        result: utility.map[1](action.payload, 'title') // initially sort data by title, ascending
       };
     case actions.LOADING:
       return {
