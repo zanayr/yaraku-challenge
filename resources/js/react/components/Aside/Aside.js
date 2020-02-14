@@ -1,12 +1,14 @@
 import React from 'react';
 
-import AddForm from '../form/Add/Add';
+import BookForm from '../form/Book/Book';
 
 const aside = props => {
   return (
     <aside className='column center-content'>
       <div className='wrapper'>
-        <AddForm close={props.toggle} />
+        <BookForm close={props.toggle}
+                  data={props.data}
+                  state={props.state} />
       </div>
     </aside>
   );

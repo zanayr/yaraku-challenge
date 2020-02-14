@@ -15,7 +15,7 @@ class Main extends Component {
     return (
       <main>
           <div className='wrapper'>
-            <List />
+            <List action={this.props.toggle} />
             <Action click={this.props.toggle} />
           </div>
       </main>

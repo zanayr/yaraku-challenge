@@ -15,4 +15,4 @@ use Illuminate\Http\Request;
 
 Route::get('books', 'BookController@index');
 Route::post('books', 'BookController@store');
-Route::put('books/{id}', 'BookController@update');
+Route::put('books/{book}', 'BookController@update');

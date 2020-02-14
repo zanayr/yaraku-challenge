@@ -54750,6 +54750,7 @@ function (_Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(App).call(this, props));
     _this.state = {
       active: false,
+      data: null,
       state: null
     };
     _this.handle_onAsideToggle = _this.handle_onAsideToggle.bind(_assertThisInitialized(_this));
@@ -54758,9 +54759,10 @@ function (_Component) {
 
   _createClass(App, [{
     key: "handle_onAsideToggle",
-    value: function handle_onAsideToggle(state) {
+    value: function handle_onAsideToggle(state, data) {
       this.setState({
         active: !this.state.active,
+        data: data,
         state: state
       });
     }
@@ -54768,10 +54770,15 @@ function (_Component) {
     key: "render",
     value: function render() {
       var aside = null;
-      if (this.state.active) aside = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Aside_Aside__WEBPACK_IMPORTED_MODULE_6__["default"], {
-        toggle: this.handle_onAsideToggle,
-        state: this.state.state
-      });
+
+      if (this.state.active) {
+        aside = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Aside_Aside__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          data: this.state.data,
+          state: this.state.state,
+          toggle: this.handle_onAsideToggle
+        });
+      }
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_redux__WEBPACK_IMPORTED_MODULE_2__["Provider"], {
         store: store
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Header_Header__WEBPACK_IMPORTED_MODULE_7__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Main_Main__WEBPACK_IMPORTED_MODULE_8__["default"], {
@@ -54798,7 +54805,7 @@ react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _form_Add_Add__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../form/Add/Add */ "./resources/js/react/components/form/Add/Add.js");
+/* harmony import */ var _form_Book_Book__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../form/Book/Book */ "./resources/js/react/components/form/Book/Book.js");
 
 
 
@@ -54807,8 +54814,10 @@ var aside = function aside(props) {
     className: "column center-content"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wrapper"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_form_Add_Add__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    close: props.toggle
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_form_Book_Book__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    close: props.toggle,
+    data: props.data,
+    state: props.state
   })));
 };
 
@@ -54926,7 +54935,9 @@ function (_Component) {
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("main", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wrapper"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_list_List_List__WEBPACK_IMPORTED_MODULE_4__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_button_Action_Action__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_list_List_List__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        action: this.props.toggle
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_button_Action_Action__WEBPACK_IMPORTED_MODULE_3__["default"], {
         click: this.props.toggle
       })));
     }
@@ -55026,8 +55037,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var context = function context(props) {
+  var handle_onClick = function handle_onClick(e) {
+    e.preventDefault();
+    props.action();
+  };
+
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "context-button button column center-content"
+    className: "context-button button column center-content",
+    onClick: handle_onClick
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wrapper"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
@@ -55126,10 +55143,10 @@ var submit = function submit(props) {
 
 /***/ }),
 
-/***/ "./resources/js/react/components/form/Add/Add.js":
-/*!*******************************************************!*\
-  !*** ./resources/js/react/components/form/Add/Add.js ***!
-  \*******************************************************/
+/***/ "./resources/js/react/components/form/Book/Book.js":
+/*!*********************************************************!*\
+  !*** ./resources/js/react/components/form/Book/Book.js ***!
+  \*********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -55149,17 +55166,34 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var add = function add(props) {
+var book = function book(props) {
   var handle_onCancel = function handle_onCancel() {
     props.close(null);
   };
 
   var handle_onSubmit = function handle_onSubmit(e) {
     e.preventDefault();
-    props.post({
-      title: form.current.title.value,
-      author: form.current.author.value
-    });
+    var title = form.current.title.value;
+    var author = form.current.author.value;
+
+    switch (props.state) {
+      case 0:
+        props.post({
+          title: title,
+          author: author
+        });
+        break;
+
+      case 1:
+        props.put(props.data.id, {
+          title: title,
+          author: author
+        });
+
+      default:
+        break;
+    }
+
     props.close(null);
   };
 
@@ -55174,10 +55208,12 @@ var add = function add(props) {
     className: "form-header"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wrapper"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Add New Book"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_input_Input_Input__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    label: "title"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, props.state ? 'Edit' : 'Add', " Book"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_input_Input_Input__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    label: "title",
+    value: props.state ? props.data.title : ''
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_input_Input_Input__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    label: "author"
+    label: "author",
+    value: props.state ? props.data.author : ''
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "form-footer row center-content justify-between"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -55194,11 +55230,14 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     post: function post(data) {
       return dispatch(_store_actions__WEBPACK_IMPORTED_MODULE_2__["post_async"](data));
+    },
+    put: function put(id, data) {
+      return dispatch(_store_actions__WEBPACK_IMPORTED_MODULE_2__["put_async"](id, data));
     }
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(null, mapDispatchToProps)(add));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(null, mapDispatchToProps)(book));
 
 /***/ }),
 
@@ -55213,7 +55252,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _utility_utility__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../utility/utility */ "./resources/js/react/utility/utility.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
@@ -55224,9 +55262,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
 var Input = function Input(props) {
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(props.value),
       _useState2 = _slicedToArray(_useState, 2),
       value = _useState2[0],
       setValue = _useState2[1];
@@ -55344,6 +55381,9 @@ var item = function item(props) {
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wrapper"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_button_Context_Context__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    action: function action() {
+      return props.action(1, props.data);
+    },
     value: "a"
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_button_Context_Context__WEBPACK_IMPORTED_MODULE_1__["default"], {
     value: "e"
@@ -55372,10 +55412,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var list = function list(props) {
-  var items = props.data.map(function (datum) {
+  var items = props.data.map(function (d) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Item_Item__WEBPACK_IMPORTED_MODULE_2__["default"], {
-      data: datum,
-      key: datum.id
+      action: props.action,
+      data: d,
+      key: d.id
     });
   });
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
@@ -55400,7 +55441,7 @@ var mapStateToProps = function mapStateToProps(state) {
 /*!*********************************************!*\
   !*** ./resources/js/react/store/actions.js ***!
   \*********************************************/
-/*! exports provided: CLEAR, DELETE, FAIL, GET, LOADING, POST, PUT, SEARCH, SORT, loading, sort, get_async, post_async, search_async */
+/*! exports provided: CLEAR, DELETE, FAIL, GET, LOADING, POST, PUT, SEARCH, SORT, loading, sort, get_async, post_async, put_async, search_async */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -55418,6 +55459,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sort", function() { return sort; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_async", function() { return get_async; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "post_async", function() { return post_async; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "put_async", function() { return put_async; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "search_async", function() { return search_async; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
@@ -55468,6 +55510,13 @@ var post = function post(data) {
   };
 };
 
+var put = function put(data) {
+  return {
+    type: PUT,
+    payload: data
+  };
+};
+
 var search = function search(data) {
   return {
     type: SEARCH,
@@ -55508,6 +55557,16 @@ var post_async = function post_async(data) {
     dispatch(loading());
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/books', data).then(function (response) {
       dispatch(post(response.data));
+    })["catch"](function (error) {
+      dispatch(failure(error));
+    });
+  };
+};
+var put_async = function put_async(id, data) {
+  return function (dispatch) {
+    dispatch(loading());
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/books/".concat(id), data).then(function (response) {
+      dispatch(put(response.data));
     })["catch"](function (error) {
       dispatch(failure(error));
     });
@@ -55562,6 +55621,7 @@ var initial = {
 var reducer = function reducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initial;
   var action = arguments.length > 1 ? arguments[1] : undefined;
+  var data, result;
 
   switch (action.type) {
     case _actions__WEBPACK_IMPORTED_MODULE_0__["FAIL"]:
@@ -55583,7 +55643,17 @@ var reducer = function reducer() {
       });
 
     case _actions__WEBPACK_IMPORTED_MODULE_0__["POST"]:
-      var data = state.data.concat(action.payload);
+      data = state.data.concat(action.payload);
+      return _objectSpread({}, state, {
+        data: data,
+        isLoading: false,
+        result: _utility_utility__WEBPACK_IMPORTED_MODULE_1__["map"][state.sort.direction](data, state.sort.value)
+      });
+
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["PUT"]:
+      data = state.data.filter(function (d) {
+        return d.id != action.payload.id;
+      }).concat(action.payload);
       return _objectSpread({}, state, {
         data: data,
         isLoading: false,
@@ -55591,7 +55661,7 @@ var reducer = function reducer() {
       });
 
     case _actions__WEBPACK_IMPORTED_MODULE_0__["SEARCH"]:
-      var result = state.data.filter(function (datum) {
+      result = state.data.filter(function (datum) {
         return datum.author.includes(action.payload) || datum.title.includes(action.payload);
       });
       return _objectSpread({}, state, {

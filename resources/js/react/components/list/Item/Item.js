@@ -14,7 +14,7 @@ const item = props => {
         </div>
         <div className='list-item-context row center-content'>
           <div className='wrapper'>
-            <Context value='a'/>
+            <Context action={() => props.action(1, props.data)} value='a'/>
             <Context value='e'/>
           </div>
         </div>

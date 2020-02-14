@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import * as utility from '../../../utility/utility';
 
 const Input = (props) => {
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState(props.value);
 
   const handle_onChange = e => {
     setValue(e.target.value);

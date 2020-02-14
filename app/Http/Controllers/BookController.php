@@ -19,11 +19,10 @@ class BookController extends Controller
         return response()->json($book);
     }
     
-    public function update($id, $data) {
-        $book = Book::findOrFail($id);
-        $book->title = $data->title;
-        $book->author = $data->author;
+    public function update(Request $request, Book $book) {
+        $book->title = $request->title;
+        $book->author = $request->author;
         $book->update();
-        return response()->json('A book has been updated in the database.');
+        return response()->json($book);
     }
 }

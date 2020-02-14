@@ -44,6 +44,12 @@ const post = data => {
     payload: data
   };
 };
+const put = data => {
+  return {
+    type: PUT,
+    payload: data
+  };
+};
 const search = data => {
   return {
     type: SEARCH,
@@ -93,6 +99,18 @@ export const post_async = data => {
       });
   };
 };
+export const put_async = (id, data) => {
+  return dispatch => {
+    dispatch(loading());
+    axios.put(`/api/books/${id}`, data)
+      .then(response => {
+        dispatch(put(response.data));
+      })
+      .catch(error => {
+        dispatch(failure(error));
+      });
+  }
+}
 export const search_async = data => {
   return dispatch => {
     dispatch(loading()); // had to use thunk to dispatch loading first

@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import Item from '../Item/Item';
 
 const list = props => {
-  const items = props.data.map(datum => {
-    return <Item data={datum} key={datum.id} />
+  const items = props.data.map(d => {
+    return <Item action={props.action} data={d} key={d.id} />
   });
 
   return (

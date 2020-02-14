@@ -20,22 +20,28 @@ class App extends Component {
       super(props);
       this.state = {
         active: false,
+        data: null,
         state: null
       }
 
       this.handle_onAsideToggle = this.handle_onAsideToggle.bind(this);
     }
 
-    handle_onAsideToggle(state) {
+    handle_onAsideToggle(state, data) {
       this.setState({
         active: !this.state.active,
+        data: data,
         state: state
       });
     }
 
     render() {
         let aside = null;
-        if (this.state.active) aside = <Aside toggle={this.handle_onAsideToggle} state={this.state.state} />;
+        if (this.state.active) {
+          aside = <Aside data={this.state.data}
+                         state={this.state.state}
+                         toggle={this.handle_onAsideToggle} />;
+        }
         return (
             <Provider store={store}>
               <Header />

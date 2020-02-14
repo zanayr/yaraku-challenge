@@ -13,6 +13,7 @@ const initial = {
 }
 
 const reducer = (state = initial, action) => {
+  let data, result;
   switch (action.type) {
     case actions.FAIL:
       return {
@@ -32,7 +33,17 @@ const reducer = (state = initial, action) => {
         isLoading: true
       };
     case actions.POST:
-      let data = state.data.concat(action.payload);
+      data = state.data.concat(action.payload);
+      return {
+        ...state,
+        data: data,
+        isLoading: false,
+        result: utility.map[state.sort.direction](data, state.sort.value)
+      };
+    case actions.PUT:
+      data = state.data.filter(d => {
+        return d.id != action.payload.id
+      }).concat(action.payload);
       return {
         ...state,
         data: data,
@@ -40,9 +51,9 @@ const reducer = (state = initial, action) => {
         result: utility.map[state.sort.direction](data, state.sort.value)
       };
     case actions.SEARCH:
-      const result = state.data.filter(datum => {
-        return datum.author.includes(action.payload) ||
-               datum.title.includes(action.payload);
+      result = state.data.filter(datum => {
+      return datum.author.includes(action.payload) ||
+             datum.title.includes(action.payload);
       });
       return {
         ...state,
