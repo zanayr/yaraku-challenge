@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Parser } from 'json2csv';
 
 /*  ACTIONS  */
 export const CLEAR = 'CLEAR';
@@ -95,6 +96,30 @@ export const delete_async = data => {
       .catch(error => {
         dispatch(failure(error));
       });
+  };
+};
+export const export_async = data => {
+  return dispatch => {
+    axios({
+      url: 'api/books/export',
+      method: 'GET',
+      responseType: 'blob'
+    }).then(response => {
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', data.title + '.xlsx'); //or any other extension
+      document.body.appendChild(link);
+      link.click();
+    })
+    // axios.get('/api/books/export', data)
+    //   .then(response => {
+    //     console.log(response);
+        
+    //   })
+    //   .catch(error => {
+    //     console.error(error);
+    //   });
   };
 };
 export const get_async = () => {

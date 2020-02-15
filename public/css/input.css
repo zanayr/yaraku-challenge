@@ -86,9 +86,14 @@ div.action-button {
   height: 48px;
   bottom: 8px;
   position: fixed;
-  right: 8px;
   width: 48px;
   z-index: 99;
+}
+div.action-button.bottom-left {
+  left: 8px;
+}
+div.action-button.bottom-right {
+  right: 8px;
 }
 
 /*  BUTTON  */

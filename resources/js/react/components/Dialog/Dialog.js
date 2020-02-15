@@ -30,6 +30,11 @@ const book = props => {
       case 2:
         props.delete(props.data);
         break;
+      case 3:
+        props.export({
+          title: title
+        });
+        break;
       default:
         break;
     }
@@ -42,7 +47,7 @@ const book = props => {
   let header;
   let content = (
     <Input label='title'
-           value={props.state ? props.data.title : ''}/>
+           value={(props.state && props.data) ? props.data.title : ''}/>
   );
   switch (props.state) {
     case 0:
@@ -61,6 +66,9 @@ const book = props => {
         </div>
       );
       break;
+    case 3:
+      header = 'Download Books';
+      break;
     default:
       break;
   }
@@ -76,8 +84,8 @@ const book = props => {
           </div>
         </div>
         {content}
-        {props.state != 2 ? <Input label='author'
-               value={props.state ? props.data.author : ''}/> : null}
+        {props.state < 2 ? <Input label='author'
+               value={(props.state && props.data) ? props.data.author : ''}/> : null}
         <div className='form-footer row center-content justify-between'>
           <div className='wrapper'>
             <Button click={handle_onCancel}
@@ -92,7 +100,8 @@ const book = props => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    delete: id => dispatch(actions.delete_async(id)),
+    delete: data => dispatch(actions.delete_async(data)),
+    export: data => dispatch(actions.export_async(data)),
     post: data => dispatch(actions.post_async(data)),
     put: (id, data) => dispatch(actions.put_async(id, data))
   };

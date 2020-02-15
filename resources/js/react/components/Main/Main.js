@@ -16,7 +16,12 @@ class Main extends Component {
       <main>
           <div className='wrapper'>
             <List action={this.props.toggle} />
-            <Action click={this.props.toggle} />
+            <Action click={this.props.toggle}
+                    position={'bottom-left'}
+                    state={3} />
+            <Action click={this.props.toggle}
+                    position={'bottom-right'}
+                    state={0} />
           </div>
       </main>
     );
