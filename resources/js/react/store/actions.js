@@ -100,26 +100,17 @@ export const delete_async = data => {
 };
 export const export_async = data => {
   return dispatch => {
-    axios({
-      url: 'api/books/export',
-      method: 'GET',
-      responseType: 'blob'
-    }).then(response => {
+    axios.get(`/api/books/${data.type}`, {
+      responseType: 'blob',
+    })
+      .then(response => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', data.title + '.xlsx'); //or any other extension
+      link.setAttribute('download', data.title + '.' + data.type); //or any other extension
       document.body.appendChild(link);
       link.click();
-    })
-    // axios.get('/api/books/export', data)
-    //   .then(response => {
-    //     console.log(response);
-        
-    //   })
-    //   .catch(error => {
-    //     console.error(error);
-    //   });
+    });
   };
 };
 export const get_async = () => {

@@ -9,8 +9,10 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ExportController extends Controller
 {
-    public function export(Request $request) {
-        // $data = new BooksExport();
-        return Excel::download(new BooksExport, $request->title . '.xlsx');
+    public function xls(Request $request) {
+        return Excel::download(new BooksExport, 'file.xlsx');
+    }
+    public function csv(Request $request) {
+        return Excel::download(new BooksExport, 'file.csv');
     }
 }

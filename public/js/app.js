@@ -63098,25 +63098,17 @@ var delete_async = function delete_async(data) {
 };
 var export_async = function export_async(data) {
   return function (dispatch) {
-    axios__WEBPACK_IMPORTED_MODULE_0___default()({
-      url: 'api/books/export',
-      method: 'GET',
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/books/csv", {
       responseType: 'blob'
     }).then(function (response) {
       var url = window.URL.createObjectURL(new Blob([response.data]));
       var link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', data.title + '.xlsx'); //or any other extension
+      link.setAttribute('download', data.title + '.csv'); //or any other extension
 
       document.body.appendChild(link);
       link.click();
-    }); // axios.get('/api/books/export', data)
-    //   .then(response => {
-    //     console.log(response);
-    //   })
-    //   .catch(error => {
-    //     console.error(error);
-    //   });
+    });
   };
 };
 var get_async = function get_async() {
