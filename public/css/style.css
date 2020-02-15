@@ -78,6 +78,9 @@ div.wrapper {
 .dingbat {
   font-family: "Bookmark Dingbats";
 }
+.sm-icon {
+  font-size: 11px;
+}
 .md-icon {
   font-size: 27px;
 }

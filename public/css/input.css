@@ -33,6 +33,9 @@ div.search-input {
   max-width: 445px;
   width: 100%;
 }
+div.search-input input {
+  padding-right: 32px;
+}
 /*  SORT  */
 div.sort-button {
   border-radius: 2px;
@@ -102,6 +105,16 @@ button {
   border-radius: 2px;
   font-family: "Montserrat";
   font-size: 13px;
+}
+
+/*  Clear Button  */
+div.search-input div.button {
+  position: absolute;
+  right: 0px;
+  width: 32px;
+}
+div.search-input div.button > div {
+  padding: 8px;
 }
 
 @media only screen and (min-width: 668px) {

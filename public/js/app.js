@@ -55365,12 +55365,26 @@ var Search = function Search(props) {
       value = _useState2[0],
       setValue = _useState2[1];
 
+  var handle_onClear = function handle_onClear(e) {
+    e.preventDefault();
+    props.clear();
+    setValue('');
+  };
+
   var handle_onChange = function handle_onChange(e) {
     var value = e.target.value;
     props.search(value);
     setValue(value);
   };
 
+  var clear = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "clear-button button column center-content",
+    onClick: handle_onClear
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "wrapper"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+    className: "dingbat sm-icon"
+  }, "e")));
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "search-input row center-content"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -55380,11 +55394,14 @@ var Search = function Search(props) {
     placeholder: "Search",
     type: "text",
     value: value
-  })));
+  }), value.length ? clear : null));
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
+    clear: function clear() {
+      return dispatch(_store_actions__WEBPACK_IMPORTED_MODULE_2__["clear_async"]());
+    },
     search: function search(data) {
       return dispatch(_store_actions__WEBPACK_IMPORTED_MODULE_2__["search_async"](data));
     }
@@ -55487,7 +55504,7 @@ var mapStateToProps = function mapStateToProps(state) {
 /*!*********************************************!*\
   !*** ./resources/js/react/store/actions.js ***!
   \*********************************************/
-/*! exports provided: CLEAR, DELETE, FAIL, GET, LOADING, POST, PUT, SEARCH, SORT, loading, sort, delete_async, get_async, post_async, put_async, search_async */
+/*! exports provided: CLEAR, DELETE, FAIL, GET, LOADING, POST, PUT, SEARCH, SORT, loading, sort, clear_async, delete_async, get_async, post_async, put_async, search_async */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -55503,6 +55520,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SORT", function() { return SORT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loading", function() { return loading; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sort", function() { return sort; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clear_async", function() { return clear_async; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "delete_async", function() { return delete_async; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_async", function() { return get_async; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "post_async", function() { return post_async; });
@@ -55530,21 +55548,19 @@ var clear = function clear() {
     type: CLEAR,
     payload: {}
   };
-}; //  Delete
-//  Failure
-
-
-var failure = function failure(error) {
-  return {
-    type: FAIL,
-    payload: error
-  };
 };
 
 var del = function del(data) {
   return {
     type: DELETE,
     payload: data
+  };
+};
+
+var failure = function failure(error) {
+  return {
+    type: FAIL,
+    payload: error
   };
 }; //  Get all data
 
@@ -55578,7 +55594,6 @@ var search = function search(data) {
   };
 };
 /*  EXPORTED ACTION BUILDERS  */
-//  Loading
 
 
 var loading = function loading() {
@@ -55586,22 +55601,30 @@ var loading = function loading() {
     type: LOADING,
     payload: {}
   };
-}; //  Sort
-
+};
 var sort = function sort(data) {
   return {
     type: SORT,
     payload: data
   };
-}; //  Get Async
+}; //  ASYNC ACTIONS
 
+var clear_async = function clear_async() {
+  return function (dispatch) {
+    dispatch(loading());
+    new Promise(function (resolve, _) {
+      resolve();
+    }).then(function () {
+      dispatch(clear());
+    });
+  };
+};
 var delete_async = function delete_async(data) {
   return function (dispatch) {
     dispatch(loading());
     axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/api/books/".concat(data.id)).then(function (response) {
       dispatch(del(response.data));
     })["catch"](function (error) {
-      console.log(error);
       dispatch(failure(error));
     });
   };
@@ -55615,8 +55638,7 @@ var get_async = function get_async() {
       dispatch(failure(error));
     });
   };
-}; //  Post Async
-
+};
 var post_async = function post_async(data) {
   return function (dispatch) {
     dispatch(loading());
@@ -55672,10 +55694,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var initial = {
   data: [],
+  // All data
   error: null,
   isLoading: false,
   result: [],
-  // search results
+  // Data that is currently displayed
   sort: {
     direction: 1,
     // 0 = DESC, 1 = ASC
@@ -55689,6 +55712,12 @@ var reducer = function reducer() {
   var data, result;
 
   switch (action.type) {
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["CLEAR"]:
+      return _objectSpread({}, state, {
+        isLoading: false,
+        result: _utility_utility__WEBPACK_IMPORTED_MODULE_1__["map"][state.sort.direction](state.data, state.sort.value)
+      });
+
     case _actions__WEBPACK_IMPORTED_MODULE_0__["DELETE"]:
       data = state.data.filter(function (d) {
         return d.id != action.payload.id;

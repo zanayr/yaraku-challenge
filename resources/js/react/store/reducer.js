@@ -2,10 +2,10 @@ import * as actions from './actions';
 import * as utility from '../utility/utility';
 
 const initial = {
-  data: [],
+  data: [], // All data
   error: null,
   isLoading: false,
-  result: [], // search results
+  result: [], // Data that is currently displayed
   sort: {
     direction: 1, // 0 = DESC, 1 = ASC
     value: 'title'
@@ -15,6 +15,12 @@ const initial = {
 const reducer = (state = initial, action) => {
   let data, result;
   switch (action.type) {
+    case actions.CLEAR:
+      return {
+        ...state,
+        isLoading: false,
+        result: utility.map[state.sort.direction](state.data, state.sort.value)
+      };
     case actions.DELETE:
       data = state.data.filter(d => {
         return d.id != action.payload.id

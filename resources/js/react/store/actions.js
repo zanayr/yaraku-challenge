@@ -19,22 +19,18 @@ const clear = () => {
     payload: {}
   };
 };
-
-//  Delete
-
-//  Failure
+const del = data => {
+  return {
+    type: DELETE,
+    payload: data
+  };
+};
 const failure = error => {
   return {
     type: FAIL,
     payload: error
   };
 };
-const del = data => {
-  return {
-    type: DELETE,
-    payload: data
-  }
-}
 
 //  Get all data
 const get = data => {
@@ -64,14 +60,12 @@ const search = data => {
 };
 
 /*  EXPORTED ACTION BUILDERS  */
-//  Loading
 export const loading = () => {
   return {
     type: LOADING,
     payload: {}
   };
 };
-//  Sort
 export const sort = data => {
   return {
     type: SORT,
@@ -79,7 +73,18 @@ export const sort = data => {
   };
 };
 
-//  Get Async
+//  ASYNC ACTIONS
+export const clear_async = () => {
+  return dispatch => {
+    dispatch(loading());
+    new Promise((resolve, _) => {
+      resolve();
+    })
+    .then(() => {
+      dispatch(clear());
+    });
+  };
+};
 export const delete_async = data => {
   return dispatch => {
     dispatch(loading());
@@ -88,7 +93,6 @@ export const delete_async = data => {
         dispatch(del(response.data));
       })
       .catch(error => {
-        console.log(error);
         dispatch(failure(error));
       });
   };
@@ -105,7 +109,6 @@ export const get_async = () => {
       });
   };
 };
-//  Post Async
 export const post_async = data => {
   return dispatch => {
     dispatch(loading());
@@ -128,8 +131,8 @@ export const put_async = (id, data) => {
       .catch(error => {
         dispatch(failure(error));
       });
-  }
-}
+  };
+};
 export const search_async = data => {
   return dispatch => {
     dispatch(loading()); // had to use thunk to dispatch loading first
