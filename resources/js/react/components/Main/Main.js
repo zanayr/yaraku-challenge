@@ -13,7 +13,7 @@ class Main extends Component {
 
   render() {
     return (
-      <main>
+      <main className='list'>
           <div className='wrapper'>
             <List action={this.props.toggle} />
             <Action click={this.props.toggle}

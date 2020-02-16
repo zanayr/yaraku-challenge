@@ -221,7 +221,7 @@ header div.toolbar div.sort span.icon.active {
 
 /*  Main  */
 main > div {
-    padding-top: 72px;
+    padding: 72px 0px;
 }
 /*  List Items  */
 article.item {
