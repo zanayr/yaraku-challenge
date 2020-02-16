@@ -2,8 +2,9 @@ import React, { useRef } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions';
 
-import Button from '../button/Button/Button'
+import Button from '../button/Button/Button';
 import Input from '../input/Input/Input';
+import Select from '../input/Select/Select';
 import Submit from '../button/Submit/Submit';
 
 const book = props => {
@@ -12,19 +13,17 @@ const book = props => {
   };
   const handle_onSubmit = (e) => {
     e.preventDefault();
-    const title = form.current.title ? form.current.title.value : null;
-    const author = form.current.author ? form.current.author.value : null;
     switch (props.state) {
       case 0:
         props.post({
-          title: title,
-          author: author
+          title: form.current.title.value,
+          author: form.current.author.value
         });
         break;
       case 1:
         props.put(props.data.id, {
-          title: title,
-          author: author
+          title: form.current.title.value,
+          author: form.current.author.value
         });
         break;
       case 2:
@@ -32,7 +31,8 @@ const book = props => {
         break;
       case 3:
         props.export({
-          title: title
+          content: form.current.content.value,
+          format: form.current.format.value
         });
         break;
       default:
@@ -44,30 +44,39 @@ const book = props => {
   let form = useRef();
 
   //  From content
-  let header;
-  let content = (
+  let header = 'Add Book';
+  let first = (
     <Input label='title'
            value={(props.state && props.data) ? props.data.title : ''}/>
   );
+  let second = (
+    <Input label='author'
+           value={(props.state && props.data) ? props.data.title : ''}/>
+  );
   switch (props.state) {
-    case 0:
-      header = 'Add Book';
-      break;
     case 1:
       header = 'Edit Book';
       break;
     case 2:
       header = 'Delete Book';
-      content = (
+      first = (
         <div className='form-message'>
           <div className='wrapper'>
            <p>{`Are you sure you want to delete ${props.data.title} by ${props.data.author} from your collection?`}</p>
           </div>
         </div>
       );
+      second = null;
       break;
     case 3:
       header = 'Download Books';
+      first = (
+        <Select label='content'
+                values={{books: 'Titles and Authors', titles: 'Titles Only', authors: 'Authors Only'}} />
+      );
+      second = (
+        <Select label='format' values={{xls: 'XLS', csv: 'CSV'}} />
+      );
       break;
     default:
       break;
@@ -83,9 +92,8 @@ const book = props => {
             <h3>{header}</h3>
           </div>
         </div>
-        {content}
-        {props.state < 2 ? <Input label='author'
-               value={(props.state && props.data) ? props.data.author : ''}/> : null}
+        {first}
+        {second}
         <div className='form-footer row center-content justify-between'>
           <div className='wrapper'>
             <Button click={handle_onCancel}

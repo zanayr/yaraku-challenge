@@ -62292,7 +62292,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../store/actions */ "./resources/js/react/store/actions.js");
 /* harmony import */ var _button_Button_Button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../button/Button/Button */ "./resources/js/react/components/button/Button/Button.js");
 /* harmony import */ var _input_Input_Input__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../input/Input/Input */ "./resources/js/react/components/input/Input/Input.js");
-/* harmony import */ var _button_Submit_Submit__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../button/Submit/Submit */ "./resources/js/react/components/button/Submit/Submit.js");
+/* harmony import */ var _input_Select_Select__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../input/Select/Select */ "./resources/js/react/components/input/Select/Select.js");
+/* harmony import */ var _button_Submit_Submit__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../button/Submit/Submit */ "./resources/js/react/components/button/Submit/Submit.js");
+
 
 
 
@@ -62307,21 +62309,19 @@ var book = function book(props) {
 
   var handle_onSubmit = function handle_onSubmit(e) {
     e.preventDefault();
-    var title = form.current.title ? form.current.title.value : null;
-    var author = form.current.author ? form.current.author.value : null;
 
     switch (props.state) {
       case 0:
         props.post({
-          title: title,
-          author: author
+          title: form.current.title.value,
+          author: form.current.author.value
         });
         break;
 
       case 1:
         props.put(props.data.id, {
-          title: title,
-          author: author
+          title: form.current.title.value,
+          author: form.current.author.value
         });
         break;
 
@@ -62331,7 +62331,8 @@ var book = function book(props) {
 
       case 3:
         props["export"]({
-          title: title
+          content: form.current.content.value,
+          format: form.current.format.value
         });
         break;
 
@@ -62345,32 +62346,48 @@ var book = function book(props) {
 
   var form = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(); //  From content
 
-  var header;
-  var content = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_input_Input_Input__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  var header = 'Add Book';
+  var first = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_input_Input_Input__WEBPACK_IMPORTED_MODULE_4__["default"], {
     label: "title",
+    value: props.state && props.data ? props.data.title : ''
+  });
+  var second = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_input_Input_Input__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    label: "author",
     value: props.state && props.data ? props.data.title : ''
   });
 
   switch (props.state) {
-    case 0:
-      header = 'Add Book';
-      break;
-
     case 1:
       header = 'Edit Book';
       break;
 
     case 2:
       header = 'Delete Book';
-      content = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      first = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-message"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wrapper"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Are you sure you want to delete ".concat(props.data.title, " by ").concat(props.data.author, " from your collection?"))));
+      second = null;
       break;
 
     case 3:
       header = 'Download Books';
+      first = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_input_Select_Select__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        label: "content",
+        values: {
+          books: 'Titles and Authors',
+          titles: 'Titles Only',
+          authors: 'Authors Only'
+        }
+      });
+      second = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_input_Select_Select__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        label: "format",
+        values: {
+          xls: 'XLS',
+          csv: 'CSV'
+        }
+      });
       break;
 
     default:
@@ -62387,17 +62404,14 @@ var book = function book(props) {
     className: "form-header"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wrapper"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, header))), content, props.state < 2 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_input_Input_Input__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    label: "author",
-    value: props.state && props.data ? props.data.author : ''
-  }) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, header))), first, second, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "form-footer row center-content justify-between"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wrapper"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_button_Button_Button__WEBPACK_IMPORTED_MODULE_3__["default"], {
     click: handle_onCancel,
     value: "cancel"
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_button_Submit_Submit__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_button_Submit_Submit__WEBPACK_IMPORTED_MODULE_6__["default"], {
     value: props.state != 2 ? 'ok' : 'confirm'
   })))));
 };
@@ -62875,6 +62889,42 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 /***/ }),
 
+/***/ "./resources/js/react/components/input/Select/Select.js":
+/*!**************************************************************!*\
+  !*** ./resources/js/react/components/input/Select/Select.js ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var Select = function Select(props) {
+  //   const [value, setValue] = useState(props.value);
+  var options = Object.keys(props.values).map(function (key) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+      value: key,
+      key: key
+    }, props.values[key]);
+  });
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "text-input row center-content"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "wrapper"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: props.label
+  }, props.label), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+    name: props.label
+  }, options)));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Select);
+
+/***/ }),
+
 /***/ "./resources/js/react/components/list/Item/Item.js":
 /*!*********************************************************!*\
   !*** ./resources/js/react/components/list/Item/Item.js ***!
@@ -63098,13 +63148,14 @@ var delete_async = function delete_async(data) {
 };
 var export_async = function export_async(data) {
   return function (dispatch) {
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/books/csv", {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/books/export/".concat(data.content), {
+      format: data.format == 'xls' ? 0 : 1,
       responseType: 'blob'
     }).then(function (response) {
       var url = window.URL.createObjectURL(new Blob([response.data]));
       var link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', data.title + '.csv'); //or any other extension
+      link.setAttribute('download', "".concat(data.content, ".").concat(data.format)); //or any other extension
 
       document.body.appendChild(link);
       link.click();

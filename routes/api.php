@@ -17,5 +17,6 @@ Route::get('books', 'BookController@index');
 Route::post('books', 'BookController@store');
 Route::put('books/{book}', 'BookController@update');
 Route::delete('books/{book}', 'BookController@delete');
-Route::get('books/xls', 'ExportController@xls');
-Route::get('books/csv', 'ExportController@csv');
+Route::get('books/export/books', 'ExportController@exportBooks');
+Route::get('books/export/titles', 'ExportController@exportTitles');
+Route::get('books/export/authors', 'ExportController@exportAuthors');
