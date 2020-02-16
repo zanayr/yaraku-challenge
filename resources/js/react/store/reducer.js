@@ -1,14 +1,20 @@
+/*
+ *  Reducer.js
+ *  This document is the Redux reducer used in the application for state management and component decoupling
+ */
+
 import * as actions from './actions';
 import * as utility from '../utility/utility';
 
+//  Initial State
 const initial = {
-  data: [], // All data
+  data: [], // all data from the SQL database
   error: null,
   isLoading: false,
-  result: [], // Data that is currently displayed
+  result: [], // data that is displayed in the application
   sort: {
     direction: 1, // 0 = DESC, 1 = ASC
-    value: 'title'
+    value: 'title' // which column to sort on
   }
 }
 
@@ -32,10 +38,12 @@ const reducer = (state = initial, action) => {
         result: utility.map[state.sort.direction](data, state.sort.value)
       };
     case actions.EXPORT:
+      //  Should create a DOM object that begins downloading the blob passed
+      //  from the backend export controller
       const url = window.URL.createObjectURL(new Blob([action.payload.data]));
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', `${action.payload.content}.${action.payload.format}`); //or any other extension
+      link.setAttribute('download', `${action.payload.content}.${action.payload.format}`);
       document.body.appendChild(link);
       link.click();
       break;
@@ -75,6 +83,7 @@ const reducer = (state = initial, action) => {
         result: utility.map[state.sort.direction](data, state.sort.value)
       };
     case actions.SEARCH:
+      // Should return an array of books that match on a substring of text
       result = state.data.filter(datum => {
       return datum.author.includes(action.payload) ||
              datum.title.includes(action.payload);

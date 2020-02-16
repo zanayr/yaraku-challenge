@@ -1,7 +1,10 @@
+/*
+ *  Action.js
+ *  This document contains the Redux action builders for the application for state management and component decoupling
+ */
 import axios from 'axios';
-import { Parser } from 'json2csv';
 
-/*  ACTIONS  */
+// Actions
 export const CLEAR = 'CLEAR';
 export const DELETE = 'DELETE';
 export const EXPORT = 'EXPORT';
@@ -13,21 +16,20 @@ export const PUT = 'PUT';
 export const SEARCH = 'SEARCH';
 export const SORT = 'SORT';
 
-/*  ACTION BUILDERS  */
-//  Clear search results
+//  Action Builders
 const clear = () => {
   return {
     type: CLEAR,
     payload: {}
   };
 };
-const del = data => {
+const del = data => { // delete
   return {
     type: DELETE,
     payload: data
   };
 };
-const exp = data => {
+const exp = data => { // export
   return {
     type: EXPORT,
     payload: data
@@ -39,15 +41,12 @@ const failure = error => {
     payload: error
   };
 };
-
-//  Get all data
 const get = data => {
   return {
     type: GET,
     payload: data
   };
 };
-//  Post
 const post = data => {
   return {
     type: POST,
@@ -66,8 +65,6 @@ const search = data => {
     payload: data
   };
 };
-
-/*  EXPORTED ACTION BUILDERS  */
 export const loading = () => {
   return {
     type: LOADING,
@@ -80,8 +77,7 @@ export const sort = data => {
     payload: data
   };
 };
-
-//  ASYNC ACTIONS
+//  The following action builders are async functions, returning a promise
 export const clear_async = () => {
   return dispatch => {
     dispatch(loading());
