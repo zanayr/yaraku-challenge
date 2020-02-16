@@ -1,0 +1,361 @@
+/*
+ * Styles.css
+ * This is the CSS document for the Bookmark Application
+ * By Ryan Fickenscher
+ */
+
+/*  Fonts  */
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap');
+@font-face {
+    font-family: 'Bookmark Dingbats';
+    src: url('../fonts/Bookmark_Dingbats.woff2') format('woff2'),
+         url('../fonts/Bookmark_Dingbats.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/*  Color Palette  */
+html:root {
+    --primary: #4c3ae9;
+    --secondary: #2a1b77;
+    --white: #f8f8f8;
+    --black: #201818;
+    --gray80: #3c3535;
+    --gray60: #645d5e;
+    --gray40: #aaa6a6;
+    --gray20: #dbdada;
+    --gray10: #f6f6f6;
+}
+
+/*  HTML Reste  */
+html, body, div, header, main, footer, aside, section, article,
+form, input, textarea, select, option, button,
+ul, li, label, h1, h2, h3, h4, h5, h6, p, a {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+input, select, textarea, button {
+    /* iOS Input Resest */
+    -webkit-appearance: none;
+    border: none;
+    border-radius: 2px;
+}
+input {
+    padding-left: 4px;
+    width: 100%;
+}
+select {
+    width: 100%;
+}
+
+/*  Global Styles  */
+html, body {
+    color: var(--black);
+    font-family: "Montserrat", "Arial", sans-serif;
+    letter-spacing: 0.06em;
+    height: 100%;
+}
+div.container {
+    padding: 0px 8px;
+}
+div.wrapper {
+    height: 100%;
+    width: auto;
+}
+img {
+    height: 100%;
+    width: auto
+}
+/*  Backgrounds  */
+.bg-black {
+    background-color: var(--black);
+    color: var(--white);
+}
+.bg-white {
+    background-color: var(--white);
+}
+.bg-primary {
+    background-color: var(--primary);
+    color: var(--white);
+}
+.bg-gradient {
+    background: linear-gradient(45deg, var(--secondary) 0%, var(--primary) 100%);
+}
+/*  Layout  */
+.row > div {
+    display: flex;
+    flex-direction: row;
+}
+.column > div {
+    display: flex;
+    flex-direction: column;
+}
+.center-content > div {
+    align-items: center;
+    justify-content: center;
+}
+.justify-between > div {
+    justify-content: space-between;
+}
+/*  Input  */
+label {
+    /* Labels are exist but are hidden */
+    left: 0px;
+    position: absolute;
+    right: 0px;
+    visibility: hidden;
+    z-index: -1;
+}
+.button {
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 13px;
+    text-transform: capitalize;
+    user-select: none;
+}
+.button > div {
+    padding: 8px;
+}
+/*  Misc.  */
+.dingbat {
+    font-family: "Bookmark Dingbats";
+    text-transform: none;
+}
+.sm-icon {
+    font-size: 11px;
+}
+.md-icon {
+    font-size: 27px;
+}
+.lg-icon {
+    font-size: 31px;
+}
+
+
+/*  Header  */
+header {
+    height: 64px;
+    margin: 0px -8px;
+}
+header > div {
+    padding: 0px 8px;
+}
+/*  Black Box  */
+header div.header {
+    border-radius: 2px;
+    height: 64px;
+    top: 8px;
+}
+header div.header > div {
+    padding: 8px;
+}
+/*  Logo  */
+header div.logo {
+    height: 32px;
+    margin-right: 8px;
+    width: 32px;
+}
+/*  Search Bar  */
+header div.search {
+    height: 48px;
+    margin-right: 8px;
+    max-width: 445px;
+    width: 100%;
+}
+header div.search input {
+    /*  Make room for the clear button */
+    background-color: var(--gray80);
+    height: 32px;
+    padding-right: 32px;
+}
+header div.search input::placeholder {
+    color: var(--gray40);
+}
+/*  Clear Button  */
+header div.search div.button {
+    position: absolute;
+    right: 0px;
+    width: 32px;
+}
+/*  Toolbar  */
+header div.toolbar {
+    bottom: -56px;
+    color: var(--black);
+    height: 48px;
+    position: absolute;
+    right: 0px;
+    z-index: 98;
+}
+header div.toolbar > div > div:not(:first-child) {
+    margin-right: 8px;
+}
+/*  Sort Button  */
+header div.toolbar div.sort {
+    height: 32px;
+    width: auto;
+}
+header div.toolbar div.sort p {
+    margin-right: 16px;
+    text-transform: capitalize;
+}
+header div.toolbar div.sort span.icon {
+    display: none;
+    transition: transform 0.33s ease;
+    visibility: hidden;
+    width: 16px;
+}
+/*  Active States  */
+header div.toolbar div.sort.active p {
+    margin-right: 0px;
+    font-weight: bold;
+}
+header div.toolbar div.sort.active span.icon {
+    display: block;
+    visibility: visible;
+}
+header div.toolbar div.sort span.icon.active {
+    transform: rotate(180deg);
+}
+
+/*  Main  */
+main > div {
+    padding-top: 72px;
+}
+/*  List Items  */
+article.item {
+    border-top: solid 1px var(--gray20);
+    height: 64px;
+}
+article.item div.content h1 {
+    font-size: 11px;
+    margin-bottom: 4px;
+}
+article.item div.content p {
+    font-size: 9px;
+}
+article.item div.context {
+    display: block;
+    visibility: visible;
+}
+article.item div.context > div > div:not(:last-child) {
+    margin-right: 8px;
+}
+/*  Context Buttons  */
+article.item div.context div.button {
+    height: 32px;
+    width: 32px;
+}
+/*  Action Buttons  */
+div.action {
+    border-radius: 24px;
+    bottom: 8px;
+    box-shadow: 2px 2px 3px 2px rgba(0, 0, 0, 0.125);
+    height: 48px;
+    position: fixed;
+    width: 48px;
+    z-index: 98;
+}
+div.action.left {
+    left: 8px;
+}
+div.action.right {
+    right: 8px;
+}
+
+/*  Dialog Box  */
+aside.dialog {
+    height: 100vh;
+    left: 0px;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    z-index: 99;
+}
+aside.dialog form.dialog {
+    border-radius: 2px;
+    box-shadow: 2px 2px 3px 2px rgba(0, 0, 0, 0.125);
+    max-width: 338px;
+    width: 66%;
+}
+aside.dialog form.dialog > div {
+    padding: 8px;
+}
+aside.dialog form.dialog div.header {
+    font-size: 19px;
+}
+aside.dialog form.dialog > div > div:not(:last-child) {
+    margin-bottom: 8px;
+}
+/*  Dialog Message  */
+aside.dialog form.dialog div.message {
+    font-size: 11px;
+}
+aside.dialog form.dialog div.message > div {
+    padding: 8px 0px;
+}
+/*  Input Fields  */
+aside.dialog form.dialog div.field input {
+    background-color: var(--gray80);
+    color: var(--white);
+    height: 32px;
+}
+aside.dialog form.dialog div.field input::placeholder {
+    color: var(--gray40);
+}
+/*  Export Select  */
+aside.dialog form.dialog select.export {
+    background-color: var(--gray80);
+    color: var(--white);
+    height: 32px;
+}
+/*  Cancel Button  */
+aside.dialog form.dialog div.button {
+    min-width: 50px;
+}
+/* Confirm/Ok Button  */
+aside.dialog form.dialog button {
+    font-family: "Montserrat", "Arial", sans-serif;
+    font-size: 13px;
+}
+
+
+/*  Desktop Screens  */
+@media only screen and (min-width: 668px) {
+    /*  Header  */
+    /*  Black Box  */
+    header div.header > div {
+        justify-content: normal !important; /* override */
+    }
+    /*  Toolbar  */
+    header div.toolbar {
+        /*  Move toolbar into black box */
+        bottom: auto;
+        right: 8px;
+    }
+    /*  Sort Button  */
+    header div.toolbar div.sort {
+        color: var(--white);
+    }
+
+    /*  Dialog  */
+    article.item {
+        cursor: pointer;
+    }
+    article.item div.content h1 {
+        font-size: 15px;
+    }
+    article.item div.content p {
+        font-size: 11px;
+    }
+    /* On desktop the context buttons are shown when hovered */
+    article.item div.context {
+        display: none;
+        visibility: hidden;
+    }
+    article.item:hover div.context {
+        display: block;
+        visibility: visible;
+    }
+}

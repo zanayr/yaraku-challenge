@@ -6,7 +6,7 @@ const context = props => {
     props.action();
   };
   return (
-    <div className='context-button button column center-content'
+    <div className='button column center-content'
          onClick={handle_onClick}>
       <div className='wrapper'>
         <p><span className='dingbat md-icon'>{props.value}</span></p>

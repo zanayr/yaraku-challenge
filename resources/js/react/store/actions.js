@@ -4,6 +4,7 @@ import { Parser } from 'json2csv';
 /*  ACTIONS  */
 export const CLEAR = 'CLEAR';
 export const DELETE = 'DELETE';
+export const EXPORT = 'EXPORT';
 export const FAIL = 'FAIL';
 export const GET = 'GET';
 export const LOADING = 'LOADING';
@@ -23,6 +24,12 @@ const clear = () => {
 const del = data => {
   return {
     type: DELETE,
+    payload: data
+  };
+};
+const exp = data => {
+  return {
+    type: EXPORT,
     payload: data
   };
 };
@@ -100,17 +107,13 @@ export const delete_async = data => {
 };
 export const export_async = data => {
   return dispatch => {
+    dispatch(loading());
     axios.get(`/api/books/export/${data.content}`, {
       format: data.format == 'xls' ? 0 : 1,
       responseType: 'blob',
     })
       .then(response => {
-        const url = window.URL.createObjectURL(new Blob([response.data]));
-        const link = document.createElement('a');
-        link.href = url;
-        link.setAttribute('download', `${data.content}.${data.format}`); //or any other extension
-        document.body.appendChild(link);
-        link.click();
+        dispatch(exp({... data, data: response.data}));
     });
   };
 };

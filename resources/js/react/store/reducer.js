@@ -31,6 +31,14 @@ const reducer = (state = initial, action) => {
         isLoading: false,
         result: utility.map[state.sort.direction](data, state.sort.value)
       };
+    case actions.EXPORT:
+      const url = window.URL.createObjectURL(new Blob([action.payload.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `${action.payload.content}.${action.payload.format}`); //or any other extension
+      document.body.appendChild(link);
+      link.click();
+      break;
     case actions.FAIL:
       return {
         ...state, 

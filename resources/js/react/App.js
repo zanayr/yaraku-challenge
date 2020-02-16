@@ -8,7 +8,7 @@ import reducer from './store/reducer';
 import thunk from 'redux-thunk';
 
 //  Component imports
-import Aside from './components/Aside/Aside';
+import Dialog from './components/Dialog/Dialog';
 import Header from './components/Header/Header';
 import Main from './components/Main/Main';
 
@@ -36,17 +36,17 @@ class App extends Component {
     }
 
     render() {
-        let aside = null;
+        let dialog = null;
         if (this.state.active) {
-          aside = <Aside data={this.state.data}
-                         state={this.state.state}
-                         toggle={this.handle_onAsideToggle} />;
+          dialog = <Dialog close={this.handle_onAsideToggle}
+                           data={this.state.data}
+                           state={this.state.state} />;
         }
         return (
             <Provider store={store}>
               <Header />
               <Main toggle={this.handle_onAsideToggle} />
-              {aside}
+              {dialog}
             </Provider>
         );
     }

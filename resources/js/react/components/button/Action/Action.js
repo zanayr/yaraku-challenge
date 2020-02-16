@@ -6,7 +6,7 @@ const action = props => {
     props.click(props.state);
   }
   return (
-    <div className={'action-button button column center-content bg-primary ' + props.position}
+    <div className={'action button column center-content bg-primary ' + props.position}
          onClick={handle_onClick}>
       <div className='wrapper'>
         <p><span className="dingbat lg-icon">{props.state ? 'f' : 'd'}</span></p>

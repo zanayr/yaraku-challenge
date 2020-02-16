@@ -6,10 +6,10 @@ const Select = (props) => {
       return <option value={key} key={key}>{props.values[key]}</option>
   })
   return (
-    <div className='text-input row center-content'>
+    <div className='row center-content'>
       <div className='wrapper'>
         <label htmlFor={props.label}>{props.label}</label>
-        <select name={props.label}>
+        <select className='export' name={props.label}>
           {options}
         </select>
       </div>

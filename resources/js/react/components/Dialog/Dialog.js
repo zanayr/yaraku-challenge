@@ -60,7 +60,7 @@ const book = props => {
     case 2:
       header = 'Delete Book';
       first = (
-        <div className='form-message'>
+        <div className='message'>
           <div className='wrapper'>
            <p>{`Are you sure you want to delete ${props.data.title} by ${props.data.author} from your collection?`}</p>
           </div>
@@ -83,26 +83,31 @@ const book = props => {
   }
   
   return (
-    <form className='bg-black'
-          onSubmit={handle_onSubmit}
-          ref={form} >
+    <aside className='dialog column center-content'>
       <div className='wrapper'>
-        <div className='form-header'>
+        <form className='dialog bg-black'
+              onSubmit={handle_onSubmit}
+              ref={form} >
           <div className='wrapper'>
-            <h3>{header}</h3>
+            <div className='form-header'>
+              <div className='wrapper'>
+                <h3>{header}</h3>
+              </div>
+            </div>
+            {first}
+            {second}
+            <div className='form-footer row center-content justify-between'>
+              <div className='wrapper'>
+                <Button click={handle_onCancel}
+                        value='cancel' />
+                <Submit value={props.state != 2 ? 'ok' : 'confirm'} />
+              </div>
+            </div>
           </div>
-        </div>
-        {first}
-        {second}
-        <div className='form-footer row center-content justify-between'>
-          <div className='wrapper'>
-            <Button click={handle_onCancel}
-                    value='cancel' />
-            <Submit value={props.state != 2 ? 'ok' : 'confirm'} />
-          </div>
-        </div>
+        </form>
       </div>
-    </form>
+    </aside>
+    
   );
 };
 

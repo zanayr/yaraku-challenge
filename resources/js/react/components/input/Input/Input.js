@@ -8,7 +8,7 @@ const Input = (props) => {
   }
 
   return (
-    <div className='text-input row center-content'>
+    <div className='field row center-content'>
       <div className='wrapper'>
         <label htmlFor={props.label}>{props.label}</label>
         <input onChange={handle_onChange}

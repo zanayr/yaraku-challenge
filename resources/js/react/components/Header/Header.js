@@ -8,7 +8,7 @@ const header = (props) => {
   return (
     <header className={'bg-gradient'}>
       <div className='wrapper'>
-          <div className='header-container row justify-between bg-black'>
+          <div className='header row center-content justify-between bg-black'>
               <div className='wrapper'>
                 <div className='logo'>
                   <div className='wrapper'>

@@ -26,7 +26,7 @@ const Search = (props) => {
   );
 
   return (
-    <div className='search-input row center-content'>
+    <div className='search row center-content'>
       <div className='wrapper'>
         <label>Search</label>
         <input onChange={handle_onChange}

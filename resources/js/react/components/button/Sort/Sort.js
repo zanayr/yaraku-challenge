@@ -15,7 +15,7 @@ const sort = props => {
   }
 
   return (
-    <div className={'sort-button button row center-content justify-between' + (active ? ' active' : '')}
+    <div className={'sort button row center-content justify-between' + (active ? ' active' : '')}
          onClick={handle_stateChange}>
       <div className='wrapper'>
         <p>{props.value}</p>
