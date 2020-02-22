@@ -5,11 +5,11 @@
 
 const desc = (arr, prop) => {
   // Should return a sorted copy of an array in descending order
-  return arr.slice().sort((a, b) => a[prop] < b[prop]);
+  return arr.slice().sort((a, b) => a[prop] < b[prop] ? 1 : -1);
 }
 const asc = (arr, prop) => {
   // Should return a sorted copy of an array in ascending order
-  return arr.slice().sort((a, b) => a[prop] > b[prop]);
+  return arr.slice().sort((a, b) => a[prop] > b[prop] ? 1 : -1);
 }
 
 export const capitalize = value => {

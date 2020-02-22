@@ -85,8 +85,10 @@ const reducer = (state = initial, action) => {
     case actions.SEARCH:
       // Should return an array of books that match on a substring of text
       result = state.data.filter(datum => {
-      return datum.author.includes(action.payload) ||
-             datum.title.includes(action.payload);
+        let author = datum.author.toLowerCase();
+        let title = datum.title.toLowerCase();
+        let value = action.payload.toLowerCase();
+        return author.includes(value) || title.includes(value);
       });
       return {
         ...state,

@@ -51,7 +51,7 @@ const book = props => {
   );
   let second = (
     <Input label='author'
-           value={(props.state && props.data) ? props.data.title : ''}/>
+           value={(props.state && props.data) ? props.data.author : ''}/>
   );
   switch (props.state) {
     case 1:

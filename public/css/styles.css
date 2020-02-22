@@ -166,6 +166,7 @@ header div.search {
 header div.search input {
     /*  Make room for the clear button */
     background-color: var(--gray80);
+    color: var(--white);
     height: 32px;
     padding-right: 32px;
 }
