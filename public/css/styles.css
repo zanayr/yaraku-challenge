@@ -161,7 +161,6 @@ header div.logo {
 header div.search {
     height: 48px;
     margin-right: 8px;
-    max-width: 445px;
     width: 100%;
 }
 header div.search input {
@@ -327,6 +326,10 @@ aside.dialog form.dialog button {
     /*  Black Box  */
     header div.header > div {
         justify-content: normal !important; /* override */
+    }
+    /*  Search Bar  */
+    header div.search {
+        max-width: 445px;
     }
     /*  Toolbar  */
     header div.toolbar {
